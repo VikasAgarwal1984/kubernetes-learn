@@ -1,5 +1,10 @@
 
 
+cd basic-deployment
+kubectl apply -f deploy-webapi.yml
+
+kubectl delete deploy webapi
+kubectl delete service webapi
 
 Reference:
 https://andrewlock.net/deploying-asp-net-core-applications-to-kubernetes-part-2-configuring-resources-with-yaml-manifests/

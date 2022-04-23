@@ -4,9 +4,11 @@ metadata:
   name: nginx-deployment
   labels:
     app: nginx
+    environment: staging
+    system: frontend
 spec:
   replicas: 3
-  strategy: 
+  strategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 1
@@ -19,14 +21,18 @@ spec:
         app: nginx
     spec:
       containers:
-      - name: nginxc
-        image: nginx:1.7.9
-        resources:
-        limits:
-          cpu: 300m
-          memory: 200Mi
-        requests:
-          cpu: 200m
-          memory: 100Mi
-        ports:
-        - containerPort: 80
+        - name: nginxc
+          image: nginx:1.7.9
+          resources:
+          limits:
+            cpu: 300m
+            memory: 200Mi
+          requests:
+            cpu: 200m
+            memory: 100Mi
+          ports:
+            - containerPort: 80
+        - name: hello-world
+          image: debian
+          command: ["/bin/sh"]
+          args: ["-c", "echo Hello world"]
