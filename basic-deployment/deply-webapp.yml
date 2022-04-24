@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapi
+  name: webapp
   labels:
-    app: weather-forecast
+    app: webapp-ang
 spec:
   replicas: 2
   selector:
     matchLabels:
-      service: webapi
+      service: webapp
   template:
     metadata:
       labels:
-        app: weather-forecast
-        service: webapi
+        app: webapp-ang
+        service: webapp
     spec:
       containers:
-        - name: webapi
-          image: webapi:local-1
+        - name: webapp
+          image: webapp:local-1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
@@ -29,15 +29,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: webapi
+  name: webapp
   labels:
-    app: weather-forecast
-    service: webapi
+    app: webapp-ang
+    service: webapp
 spec:
   type: LoadBalancer
   ports:
-    - port: 8080
+    - port: 8081
       targetPort: 80
       protocol: TCP
   selector:
-    service: webapi
+    service: webapp

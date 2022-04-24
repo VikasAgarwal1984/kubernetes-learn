@@ -2,7 +2,26 @@ version: '3.4'
 
 services:
   webapi:
-    image: ${DOCKER_REGISTRY-}webapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    image: ${DOCKER_REGISTRY-}webapi:${WebApiVersion:-latest}
     build:
       context: .
       dockerfile: WebApi/Dockerfile
+
+
+  webapp:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    image: ${DOCKER_REGISTRY-}webapp:${WebAppVersion:-latest}
+    build:
+      context: ./webapp
+      dockerfile: Dockerfile

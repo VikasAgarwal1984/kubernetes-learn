@@ -1,10 +1,26 @@
 
+## Build
+    cd scripts
+    ./build.ps1
 
-cd basic-deployment
-kubectl apply -f deploy-webapi.yml
+## Publish
+    cd scripts
+    ./publish.ps1
 
-kubectl delete deploy webapi
-kubectl delete service webapi
+## Deploy
+    cd scripts
+    ./deploy.ps1
+
+## Uninstall
+    cd scripts
+    ./uninstall.ps1
+
+## If want to build image manually
+    cd MySln
+    docker build -t webapi:local-2 -f WebApi/Dockerfile .
+
+    cd webapp
+    docker build -t webapp:local-2 .
 
 Reference:
 https://andrewlock.net/deploying-asp-net-core-applications-to-kubernetes-part-2-configuring-resources-with-yaml-manifests/
