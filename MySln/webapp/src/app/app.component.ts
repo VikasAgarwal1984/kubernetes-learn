@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ColDef } from 'ag-grid-community';
+import { WeatherService } from './services/weather.service';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +18,9 @@ export class AppComponent {
     { field: 'summary' },
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(private ws: WeatherService) {}
 
   ngOnInit() {
-    const url = 'http://localhost:8080/WeatherForecast';
-    this.rowData = this.http.get(url);
+    this.rowData = this.ws.getWeatherData();
   }
 }

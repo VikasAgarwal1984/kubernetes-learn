@@ -16,7 +16,7 @@ try {
         $Env:WebAppVersion=$WebAppVersion
 
         docker-compose down
-        docker-compose build
+        docker-compose build --no-cache
     } finally {
         Pop-Location
     }

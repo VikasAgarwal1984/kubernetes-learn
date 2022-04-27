@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapi-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: abc.localdev.me
+    http:
+      paths:
+      - path: /webapi(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: webapi
+            port:
+              number: 8080
+      - path: /webapp(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: webapp
+            port:
+              number: 8081
+      

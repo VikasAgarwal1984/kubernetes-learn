@@ -11,6 +11,9 @@ try {
     # install kubernetes deployment for web app
     kubectl apply -f ./basic-deployment/deply-webapp.yml
 
+    # install ingress
+    kubectl apply -f ./basic-deployment/ingres-manifest.yml
+
     kubectl get services
 } finally {
     Pop-Location

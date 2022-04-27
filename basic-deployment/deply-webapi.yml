@@ -5,7 +5,7 @@ metadata:
   labels:
     app: weather-forecast
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       service: webapi
@@ -34,7 +34,7 @@ metadata:
     app: weather-forecast
     service: webapi
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8080
       targetPort: 80

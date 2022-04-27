@@ -26,3 +26,5 @@ COPY --from=build /usr/local/app/dist/webapp /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
+
+CMD envsubst < /usr/share/nginx/html/configuration/config.prod.json > /usr/share/nginx/html/configuration/config.tmp.json && mv /usr/share/nginx/html/configuration/config.json /usr/share/nginx/html/configuration/config.dev.json && mv /usr/share/nginx/html/configuration/config.tmp.json /usr/share/nginx/html/configuration/config.json && nginx -g 'daemon off;'
