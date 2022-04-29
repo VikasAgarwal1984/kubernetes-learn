@@ -15,6 +15,7 @@ spec:
         app: webapp-ang
         service: webapp
     spec:
+      serviceAccountName: websac
       containers:
         - name: webapp
           image: webapp:local-1

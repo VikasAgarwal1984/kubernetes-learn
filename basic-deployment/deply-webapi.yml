@@ -15,6 +15,7 @@ spec:
         app: weather-forecast
         service: webapi
     spec:
+      serviceAccountName: websac
       containers:
         - name: webapi
           image: webapi:local-1

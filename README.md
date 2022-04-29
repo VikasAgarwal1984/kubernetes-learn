@@ -41,6 +41,7 @@ kubectl expose deployment demo
 
 kubectl create ingress demo-localhost --class=nginx --rule=demo.localdev.me/*=demo:80
 
+# not required
 kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
 
 
@@ -48,6 +49,42 @@ kubectl get pods
 kubectl exec -it webapp-bc4847fcb-9r6xv bash
 
 cd usr/share/nginx/html
+
+# service accounts
+    kubectl create serviceaccount websac --dry-run=client -o=yaml
+    kubectl create serviceaccount websac
+    kubectl get serviceaccount
+    kubectl get secret
+    kubectl get secret websac-token-zq2gv -o yaml
+
+    apt-get update
+    apt-get install curl
+
+    cd /var/run/secrets/kubernetes.io/serviceaccount
+    CA=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+
+    echo $CA
+    echo $TOKEN
+
+    curl --cacert $CA -X GET https://kubernetes/api
+    curl --cacert $CA -X GET https://kubernetes/api --header  "Authorization: Bearer $TOKEN"
+    curl -X GET https://kubernetes/api --header  "Authorization: Bearer $TOKEN" --insecure
+
+    ## create role
+    kubectl create role podlister --verb=list --resource=pods
+    kubectl create rolebinding websac-podlist --serviceaccount=default:websac --role podlister
+
+    kubectl get role
+    kubectl get rolebinding
+
+    # [tested with default and websac] podlister role is required to access below url or list pods
+    curl --cacert $CA -X GET https://kubernetes/api/v1/namespaces/default/pods --header  "Authorization: Bearer $TOKEN"
+
+    [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("")
+
+# starting a new pod
+    kubectl run -it --rm alpine --image=alpine -- sh
 
 Reference:
 https://andrewlock.net/deploying-asp-net-core-applications-to-kubernetes-part-2-configuring-resources-with-yaml-manifests/
