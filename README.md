@@ -113,8 +113,16 @@ https://jamesdefabia.github.io/docs/admin/limitrange/#:~:text=Note%20that%20a%20
     # install
     helm install mybasicchart basicchart
 
-    # uninstall
+    # uninstall / delete
     helm uninstall mybasicchart
 
     
+    # upgrade
+    ## increase version in chart file
+    helm upgrade mybasicchart basicchart
 
+    ## list down all releases
+    helm list -a
+
+    # rollback
+    helm rollback mybasicchart 1
