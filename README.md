@@ -89,3 +89,32 @@ cd usr/share/nginx/html
 Reference:
 https://andrewlock.net/deploying-asp-net-core-applications-to-kubernetes-part-2-configuring-resources-with-yaml-manifests/
 https://jamesdefabia.github.io/docs/admin/limitrange/#:~:text=Note%20that%20a%20default%20value,that%20resource%20across%20all%20containers.
+
+
+
+
+
+## HELM READ ME
+
+    cd helm-learn
+    helm create basichart
+        update values.yaml
+
+    # generate normal template and then can review changes
+    helm template basichart
+
+
+    # lint
+    helm lint basicchart
+
+    # Debug
+    helm install basicchart --debug --dry-run basicchart
+
+    # install
+    helm install mybasicchart basicchart
+
+    # uninstall
+    helm uninstall mybasicchart
+
+    
+
